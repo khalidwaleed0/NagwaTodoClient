@@ -1,16 +1,20 @@
-import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { Login } from "./pages/auth/login";
 import { Registration } from "./pages/auth/registration";
 import { List } from "./pages/list";
+import { BypassedRoutes } from "./routes/BypassedRoutes";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/register" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
+        // Routes to be bypassed and redirected to home if already logged in
+        <Route element={<BypassedRoutes />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+        </Route>
+        // Routes that cannot be accessed unless logged in
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<List />} />
         </Route>

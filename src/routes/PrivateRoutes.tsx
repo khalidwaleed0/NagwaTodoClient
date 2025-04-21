@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { StorageService } from "../services/storage";
 
 export const PrivateRoutes = () => {
-	let isAllowed = false;
-	return isAllowed ? <Outlet /> : <Navigate to="/login" />;
+	return StorageService.isLoggedIn() ? <Outlet /> : <Navigate to="/login" />;
 };
