@@ -9,12 +9,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        // Routes to be bypassed and redirected to home if already logged in
+        {/* Routes to be bypassed and redirected to home if already logged in*/}
         <Route element={<BypassedRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
         </Route>
-        // Routes that cannot be accessed unless logged in
+        {/* Routes that cannot be accessed unless logged in */}
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<List />} />
         </Route>
