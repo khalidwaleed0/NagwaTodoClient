@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { Login } from "./pages/auth/login";
 import { Registration } from "./pages/auth/registration";
-import { List } from "./pages/list";
+import { Home } from "./pages/home";
 import { BypassedRoutes } from "./routes/BypassedRoutes";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         </Route>
         {/* Routes that cannot be accessed unless logged in */}
         <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<List />} />
+          <Route path="/" element={<Home />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
