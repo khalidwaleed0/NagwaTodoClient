@@ -21,9 +21,9 @@ export function Login() {
       AuthService.login({ email: form!.email.value, password: form!.password.value })
         .then(async (res) => {
           if (res.ok) {
-            let token = await res.json();
-            if (form["remember-me"].checked) StorageService.setPermanentLogin(token);
-            else StorageService.setSessionLogin(token);
+            let { token, username } = await res.json();
+            if (form["remember-me"].checked) StorageService.setPermanentLogin(token, username);
+            else StorageService.setSessionLogin(token, username);
             navigate("/");
           } else setError(await res.text());
         })
