@@ -9,7 +9,6 @@
     gap: 24px;
     width: min(500px, 100%);
     height: 80vh;
-    padding: 8px;
     border-radius: 16px;
     box-shadow: 0px 0px 8px rgba(51, 51, 51, 0.2);
   }
@@ -18,7 +17,7 @@
     align-items: center;
     padding: 8px;
     gap: 8px;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     color: white;
     background-color: cornflowerblue;
     font-size: 20px;
@@ -45,6 +44,7 @@
   }
   form {
     margin-top: auto;
+    padding: 8px;
   }
   .add-new {
     width: 100%;
@@ -56,7 +56,10 @@
   .sortable-list {
     display: flex;
     flex-direction: column;
+    padding: 0 8px;
+    flex: 1 0 0;
     gap: 4px;
+    overflow: scroll;
   }
 }
 
