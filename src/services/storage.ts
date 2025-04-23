@@ -20,4 +20,9 @@ function getAccessToken() {
   return sessionStorage.getItem("token") || localStorage.getItem("token");
 }
 
-export const StorageService = { setSessionLogin, setPermanentLogin, isLoggedIn, getAccessToken, getUserName };
+function clear() {
+  sessionStorage.clear();
+  localStorage.clear();
+}
+
+export const StorageService = { setSessionLogin, setPermanentLogin, isLoggedIn, getAccessToken, getUserName, clear };
