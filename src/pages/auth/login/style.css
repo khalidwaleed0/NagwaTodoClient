@@ -7,12 +7,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-
-      input {
-        width: 18px;
-        height: 18px;
-        accent-color: var(--pink-color-dark);
-      }
+      
       label{
         vertical-align: middle;
       }

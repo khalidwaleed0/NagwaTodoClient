@@ -2,9 +2,9 @@ import { FormEvent, forwardRef, useEffect, useState } from "react";
 import { CrudService } from "../../services/crud";
 import { arrayMoveImmutable } from "array-move";
 import SortableList, { SortableItem } from "react-easy-sort";
-type List = { _id?: string; title: string; progress: number };
+import { List, ListCardProps } from "../../types";
 
-export function ListsContainer() {
+export function ListsContainer({ setSelectedList }: { setSelectedList: (list: List) => void }) {
   const [lists, setLists] = useState<List[]>([]);
   useEffect(() => {
     CrudService.fetchAllLists()
@@ -27,29 +27,29 @@ export function ListsContainer() {
       <SortableList className="sortable-list" onSortEnd={handleSort} lockAxis="y">
         {lists.map((list) => (
           <SortableItem key={list._id}>
-            <ListCard _id={list._id} title={list.title} progress={list.progress} />
+            <ListCard list={list} setSelectedList={setSelectedList} />
           </SortableItem>
         ))}
       </SortableList>
       <form onSubmit={addList}>
-        <input id="listname" className="add-new" placeholder="+ add a new list" name="listName" />
+        <input id="listname" className="add-new" placeholder="+ new list" name="listName" />
       </form>
     </>
   );
 }
 
-const ListCard = forwardRef<HTMLDivElement, List>(({ _id, title, progress }, ref) => {
+const ListCard = forwardRef<HTMLDivElement, ListCardProps>(({ list, setSelectedList }, ref) => {
   return (
-    <div className="list-card" ref={ref}>
-      <span className="list-card-title">{title}</span>
+    <div className="list-card" ref={ref} onClick={() => setSelectedList(list)}>
+      <span className="list-card-title">{list.title}</span>
       <span
         className="progress-bar"
         style={{
           background: `radial-gradient(closest-side, white 79%, transparent 80% 100%),
-          conic-gradient(hotpink ${progress}%, pink 0)`,
+          conic-gradient(hotpink ${list.progress}%, pink 0)`,
         }}
       >
-        {progress}%
+        {list.progress}%
       </span>
     </div>
   );

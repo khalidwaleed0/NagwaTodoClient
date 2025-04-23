@@ -16,6 +16,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #f7f7f7;
+}
 :root {
   font-family: "DroidArabicNaskh", sans-serif;
   --pink-color-dark: #e51d74;
@@ -44,7 +47,12 @@ button {
 button:hover {
   filter: saturate(110%);
 }
-
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--pink-color-dark);
+  cursor: pointer;
+}
 button,
 svg {
   cursor: pointer;
