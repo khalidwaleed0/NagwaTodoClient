@@ -26,7 +26,7 @@ export function Home() {
               <li onClick={logout}>Signout</li>
             </ul>
           </span>
-          <span className="greet">Welcome back, {username}!</span>
+          <span className="greet">Welcome, {username}!</span>
         </header>
         <div className="home-content">
           {selectedList ? (
