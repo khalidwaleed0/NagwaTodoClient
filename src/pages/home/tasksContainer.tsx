@@ -1,10 +1,12 @@
-import { FormEvent, forwardRef, useEffect, useRef, useState } from "react";
+import { FormEvent, forwardRef, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { CrudService } from "../../services/crud";
 import SortableList, { SortableItem } from "react-easy-sort";
 import { Task, TaskCardProps, TasksContainerProps } from "../../types";
+import { useCyclingFocus } from "../../hooks/use-cycling-focus";
 
 export function TasksContainer({ selectedList, setSelectedList }: TasksContainerProps) {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [focusedIndex] = useCyclingFocus(tasks.length);
   useEffect(() => {
     CrudService.fetchListTasks(selectedList._id)
       .then((res) => res.json())
@@ -13,7 +15,6 @@ export function TasksContainer({ selectedList, setSelectedList }: TasksContainer
   useEffect(() => {
     if (tasks.length) {
       let progress = (tasks.filter((t) => t.isDone).length * 100) / tasks.length;
-
       CrudService.editList({ ...selectedList, progress: Math.floor(progress) });
     }
   }, [tasks]);
@@ -47,9 +48,9 @@ export function TasksContainer({ selectedList, setSelectedList }: TasksContainer
       <SortableList className="sortable-list" onSortEnd={handleSort} lockAxis="y">
         {[...tasks]
           .sort((t1, t2) => t1.order - t2.order)
-          .map((task) => (
+          .map((task, i) => (
             <SortableItem key={task._id}>
-              <TaskCard task={task} editTask={editTask} deleteTask={deleteTask} />
+              <TaskCard task={task} editTask={editTask} deleteTask={deleteTask} focus={i === focusedIndex} />
             </SortableItem>
           ))}
       </SortableList>
@@ -59,9 +60,10 @@ export function TasksContainer({ selectedList, setSelectedList }: TasksContainer
     </>
   );
 }
-const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(({ task, editTask, deleteTask }, ref) => {
+const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(({ focus, task, editTask, deleteTask }, ref) => {
   const [isEditable, setEditable] = useState(false);
   const titleRef = useRef<HTMLSpanElement>(null);
+  const editBtnRef = useRef<HTMLSpanElement>(null);
   function handleCheck() {
     editTask({ ...task, isDone: !task.isDone });
   }
@@ -70,16 +72,37 @@ const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(({ task, editTask, de
     if (isEditable && editedTitle) editTask({ ...task, title: editedTitle });
     setEditable((value) => !value);
   }
+  function handleShortcuts(e: KeyboardEvent) {
+    switch (e.key) {
+      case "Enter":
+        editBtnRef.current?.click();
+        e.preventDefault();
+        break;
+      case " ":
+        handleCheck();
+        break;
+      case "Delete":
+        deleteTask(task._id);
+        break;
+      default:
+        return;
+    }
+  }
   useEffect(() => {
     if (isEditable) titleRef.current?.focus();
   }, [isEditable]);
+  useEffect(() => {
+    if (focus) titleRef.current?.parentElement?.focus();
+  }, [focus]);
   return (
-    <div className="task-card" ref={ref}>
+    <div className="task-card" ref={ref} tabIndex={focus ? 0 : -1} onKeyDown={handleShortcuts}>
       <span ref={titleRef} className={`task-card-title ${task.isDone ? "checked" : ""}`} contentEditable={isEditable}>
         {task.title}
       </span>
       <div className="task-options">
-        <span onClick={handleEdit}>{isEditable ? `✅` : `✏️`}</span>
+        <span ref={editBtnRef} onClick={handleEdit}>
+          {isEditable ? `✅` : `✏️`}
+        </span>
         <span onClick={() => deleteTask(task._id)}>🗑️</span>
         <input type="checkbox" checked={task.isDone} onChange={handleCheck} />
       </div>

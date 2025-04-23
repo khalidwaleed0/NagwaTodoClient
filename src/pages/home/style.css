@@ -121,7 +121,9 @@
   margin-right: 8px;
   cursor: grab;
 }
-
+.task-card:focus{
+  outline: 2px solid blue;
+}
 .task-card-title {
   flex: 1;
 }
