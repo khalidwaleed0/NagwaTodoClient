@@ -17,7 +17,7 @@
 }
 
 /* Header */
-.home header {
+.home-card header {
   display: flex;
   align-items: center;
   padding: 8px;
@@ -169,4 +169,14 @@ h2 {
   border-radius: 50%;
   font-size: 11px;
   padding-top: 2px;
+}
+@media (max-width: 500px) {
+  .home-card {
+    margin: 0;
+    height: auto;
+    box-shadow: none;
+  }
+  .home-card header {
+    border-radius: 0;
+  }
 }
