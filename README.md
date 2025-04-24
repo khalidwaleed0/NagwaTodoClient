@@ -1,54 +1,30 @@
-# React + TypeScript + Vite
+# Nagwa Todo Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A basic todo app with jwt authentication.
+## Live Demo
+<a href="https://nagwa-todo.netlify.app">Live Demo</a> (Fully Working)
+The frontend is hosted in the above link and it connects with the backend that I uploaded on my own private server.
 
-Currently, two official plugins are available:
+## Current Features
+- Add/View task list and its progress level.
+- Add/View/Edit/Delete list tasks.
+- Keyboard shortcuts control.
+- Reorder tasks and auto save that order in database.
+- Same pink theme as the original Nagwa website.
+- Same font (DroidArabicNaskh) as the original Nagwa website.
+- JWT authentication with remember-me capability.
+- Integrated with mongodb instead of json files.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## To be added
+- Implement (Edit/Remove List) (Time was short to replicate the logic from the task view or maybe I was being lazy).
+- Make Reorder of lists save to database (Currently only reorder of tasks saves to db for the same reason mentioned above).
+- Use another reorder library as the current one has some bugs.
+- Arabic support.
 
-## Expanding the ESLint configuration
+## How to build & start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```batch
+cd NagwaTodoClient
+npm install
+npm run dev
 ```
