@@ -2,7 +2,7 @@
 
 A basic todo app with jwt authentication.
 ## Live Demo
-<a href="https://nagwa-todo.netlify.app">Live Demo</a> (Fully Working)
+<a href="https://nagwa-todo.netlify.app">Live Demo</a> (Fully Working)<br>
 The frontend is hosted in the above link and it connects with the backend that I uploaded on my own private server.
 
 ## Current Features
