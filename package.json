@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "array-move": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-easy-sort": "^1.6.0",
